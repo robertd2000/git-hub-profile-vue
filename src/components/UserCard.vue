@@ -9,9 +9,9 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <a :href="searchedUser.url"
-            ><h5 class="card-title">Username: {{ searchedUser.login }}</h5></a
-          >
+          <h5 class="card-title">
+            Username: <a :href="searchedUser.url">{{ searchedUser.login }}</a>
+          </h5>
 
           <button
             @click="deleteCard"
@@ -34,11 +34,11 @@
             <button
               @click.prevent="showRepos"
               type="button"
-              class="btn btn-primary"
+              class="btn btn-info"
               data-bs-toggle="modal"
               :data-bs-target="searchedUser.login"
             >
-              Launch demo modal
+              Show repositories
             </button>
             <!-- <a @click.prevent="showRepos" href="">Show repositories</a> -->
           </div>
@@ -70,8 +70,15 @@ export default {
 </script>
 
 <style>
+.cardStyle.img {
+  border-color: gray;
+}
+.cardStyle.btn-close {
+  color: rgb(255, 254, 254);
+}
 .img {
   width: 185px;
+  border: 5px solid rgb(107, 158, 195);
 }
 
 .card {
@@ -81,8 +88,27 @@ export default {
   margin-left: 10px;
 }
 
+.card-title {
+  margin-left: 15px;
+}
+
+.card-body a {
+  color: rgb(23, 167, 235);
+}
+
 .btn-close {
   margin-top: -50px;
   margin-left: 300px;
+}
+
+.card-body .btn-info {
+  margin-left: 18px;
+  margin-top: 30px;
+  color: white;
+}
+
+.list-group-item {
+  background-color: inherit;
+  color: inherit;
 }
 </style>

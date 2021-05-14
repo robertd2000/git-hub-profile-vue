@@ -1,43 +1,49 @@
 <template>
-  <Header />
-  <div class="container">
-    <Modal
-      :showModal="showModal"
-      :modalContent="modalContent"
-      @close-modal="closeModal"
-    />
-    <form action="">
-      <div class="input-group mb-3">
-        <input
-          v-model="search"
-          type="text"
-          class="form-control"
-          id="text"
-          aria-describedby="text"
-          placeholder="Github Username"
-        />
-        <button
-          @click="getUserHandle(search)"
-          class="btn btn-info"
-          type="button"
-          id="button"
-        >
-          Search
-        </button>
-      </div>
-    </form>
-    <div v-if="alertInfo" class="alert alert-info" role="alert">
-      {{ alertInfo }}
-    </div>
-    <div className="row">
-      <user-card
-        v-bind:key="searchedUser"
-        v-for="searchedUser in searchedList"
-        :searchedUser="searchedUser"
-        :v-if="searchedUser"
-        @handle-delete="handleDelete"
-        @show-repos="showReposHandler"
+  <div class="app" :class="{ bodyDark: darkTheme }">
+    <Header @change-theme="changeTheme" :class="{ dark: darkTheme }" />
+    <div class="container">
+      <Modal
+        :class="{ dark: darkTheme }"
+        :showModal="showModal"
+        :modalContent="modalContent"
+        @close-modal="closeModal"
       />
+      <form action="">
+        <div class="input-group mb-3">
+          <input
+            v-model="search"
+            type="text"
+            class="form-control"
+            id="text"
+            aria-describedby="text"
+            placeholder="Github Username"
+            @keydown.enter.prevent="getUserHandle(search)"
+          />
+          <button
+            @click="getUserHandle(search)"
+            class="btn btn-info"
+            :class="{ btnSecondary: darkTheme }"
+            type="button"
+            id="button"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+      <div v-if="alertInfo" class="alert alert-info" role="alert">
+        {{ alertInfo }}
+      </div>
+      <div className="row">
+        <user-card
+          v-bind:key="searchedUser"
+          v-for="searchedUser in searchedList"
+          :searchedUser="searchedUser"
+          :v-if="searchedUser"
+          @handle-delete="handleDelete"
+          @show-repos="showReposHandler"
+          :class="{ cardStyle: darkTheme }"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +63,7 @@ export default {
       searchedList: [],
       showModal: false,
       modalContent: [],
+      darkTheme: false,
     };
   },
   created() {
@@ -95,7 +102,7 @@ export default {
         followers,
         following,
       };
-
+      console.log(this.search);
       this.searchedList = [...this.searchedList, newSearchedUser];
       this.alertInfo = '';
     },
@@ -122,6 +129,11 @@ export default {
       this.modalContent = [];
       console.log('object');
     },
+
+    changeTheme() {
+      this.darkTheme = !this.darkTheme;
+      console.log(this.darkTheme);
+    },
   },
 
   watch: {
@@ -133,7 +145,34 @@ export default {
 </script>
 
 <style>
+.app {
+  min-height: 100vh;
+}
+.bodyDark {
+  background-color: rgb(100, 97, 97);
+}
 .container {
   margin-top: 20px;
+}
+
+.dark {
+  background-color: rgb(72 71 71) !important;
+  color: white !important;
+}
+
+.btnSecondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.cardStyle {
+  border: none;
+  background: rgb(66 65 65) !important;
+  color: #fff !important;
+}
+
+.btn-info {
+  color: white;
 }
 </style>

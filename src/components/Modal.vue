@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">Repositories:</h5>
           <button
             type="button"
             class="btn-close"
@@ -13,7 +13,6 @@
           ></button>
         </div>
         <div class="modal-body">
-          <p>Repositories:</p>
           <div class="repo" v-bind:key="repo" v-for="repo in modalContent">
             <a :href="repo.svn_url"> {{ repo.name }}</a> - created at
             {{ repo.created_at }}, language - {{ repo.language }}
@@ -62,9 +61,19 @@ export default {
 
 .repo {
   margin-top: 15px;
+  color: rgb(17, 16, 16) !important;
 }
 
 .repo a {
   font-size: 20px;
 }
+
+.modal-title {
+  color: rgb(17, 16, 16) !important;
+}
+/* .modal-dialog,
+.modal-content,
+.modal-body {
+  background-color: inherit;
+} */
 </style>
